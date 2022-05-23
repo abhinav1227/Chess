@@ -1,0 +1,70 @@
+Steps:
+
+-> Creating a Board
+   * Use 2-D list to store our board value(engine)
+   * Designing our chess board and pieces using pygame(main)
+
+-> Moving the pieces on chess board(no logic i.e randomly)
+   * Start by making a move class, for ease and to track positions.
+   * Create move logic in our chess engine, and call from the while loop in our main.
+
+-> Generating valid moves also undo(easier for testing)
+   * Creating undo move function and making it happen via key press in main
+   * Logic for valid moves : 
+	-Get all possible moves
+	-For each possible move check if it is a valid move by:
+		: make the move
+		: generate all possible moves for opposing player
+		: If your king isn't being attacked, it is a valid move.
+   * Followed by calling valid move from our while loop in main.
+
+-> We need to tell python how do we know if two moves are equal(coz we are using move class)
+   because the move doesn't know how to calculate what equal is since they are two diff object.
+   We do this by overwriding the strings class 
+
+-> Taking care of when the user change his mind mid-way and decide to move another piece.
+   In the while loop we will only empty sq_selected n , if the move is a valid move.
+
+-> Generate valid moves for each piece:
+   * Pawn Moves - Moves for both black and white pawn.
+   * Rook Moves
+   * Bishop Moves
+   * Knight Moves
+   * Queen Moves (abstraction)
+   
+-> Check, checkmate and stalemate
+   * Start by keeping track of king's location, so we don't have to scan each time.
+   * We have to check if the king is under attack or if a move leaves the king under attack.
+
+   Naive Method:
+      - generate all possible moves
+      - for each move, make the move
+      - Generate all opponents move   
+      - for each of your opponent move, see if they attack your king
+      - if they do attack, not a valid move
+
+-> Pawn promotion and en passant
+   * For pawn promotion we pass the argument in Move class and implement it in make_move.
+   * For en passant we defined an optional parameter, for making move only when en passant is
+     possible and updating logic in pawn moves function.
+   * Since the piece captured is not in it's usual place, we have to specifically mention the
+     piece captured.
+   * While undoing en passant, we should think about the en passant move and teh two step pawn advance.
+
+-> Castling
+   * We create a class for castle rights, in order to avoid putting in a lot of code, followed
+     by keeping logs of of castle rights.
+   * Now we check if we can castle on either side for black and white i.e valid check moves, if
+     not we change our castle rights and update our castle logs.
+   * We make the valid castle moves using castle optional parameters in our move class.
+   * To avoid recursion, we have to move our get castl emoves function, from king moves
+     to get valid moves.
+
+-> Add reset button and meassge for game over logic in our main function.
+
+-> Animation
+   * Highlighting the selected squares and all the valid moves from that square
+   * Animating the move from starting to ending square s.t. you see the piece moving along.
+
+-> We also create an AI, where True implies player and False implies AI.
+   
